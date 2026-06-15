@@ -53,6 +53,18 @@ En resumen, AWS garantiza que la infraestructura subyacente funcione y esté dis
 
 - **Instancia EC2 (Elastic Compute Cloud)**: máquina virtual creada a partir de una AMI, que se ejecuta en la infraestructura de AWS. Es el equivalente a un servidor en la nube, con CPU, memoria, almacenamiento y red configurables.
 
+## Por qué no usar la cuenta raíz para el día a día
+
+La cuenta raíz de AWS es la identidad con la que se crea la cuenta y tiene acceso ilimitado a absolutamente todo: facturación, eliminación de la cuenta, cambio de configuraciones de seguridad, y todos los servicios sin restricción alguna. Por este motivo, usarla para tareas diarias es una mala práctica de seguridad por varias razones:
+
+- **Riesgo desproporcionado**: si las credenciales de la cuenta raíz se ven comprometidas (por ejemplo, por phishing o una filtración), el atacante tiene control total sobre la cuenta, incluyendo la facturación y la posibilidad de eliminar todos los recursos.
+
+- **Falta de trazabilidad**: cuando varias personas comparten la cuenta raíz, no se puede saber quién hizo qué cambio. Con usuarios IAM individuales, cada acción queda asociada a una identidad concreta.
+
+- **Imposibilidad de aplicar permisos limitados**: la cuenta raíz no se puede restringir; siempre tiene acceso completo. Los usuarios IAM, en cambio, permiten aplicar el principio de mínimo privilegio.
+
+Por estas razones, la recomendación de AWS es: usar la cuenta raíz únicamente para tareas que requieren explícitamente sus permisos (como cambiar el plan de soporte o cerrar la cuenta), activar MFA en ella inmediatamente, y crear un usuario IAM administrador (como `asir-admin`) para el trabajo diario.
+
 ## AWS Free Tier (nivel gratuito)
 
 Durante los primeros 12 meses tras la creación de una cuenta de AWS, ciertos servicios están disponibles de forma gratuita dentro de unos límites mensuales:
